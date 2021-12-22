@@ -1,0 +1,131 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Chart
+{% endblock %}
+
+{% block main %}
+<script src="/static/Chart.bundle.js"></script>
+<script src="/static/utils.js"></script>
+<script src="static/index.js"></script>
+<div class ='text-center'>
+  <p><h2><u>Summary of your data</u></h2></p>
+</div>
+<div class='row'>
+  <div class='column'>
+    <br>
+    <h4><u>Stats</u></h4>
+  <h5>
+    <ul>
+      <li>Total Number of Students : {{data.stdtotal}}</li>
+      <br>
+      <li>Total Number of Classes : <span id="classtotal">{{data.clstotal}}</span></li>
+    <ul>
+  </h5>
+  <br><br><br><br>
+  <div class='container'>
+    <h4><u>Total Income Per Month</u></h4>
+    <div id='fees'>{{data.paytotal}}</div>
+  </div>
+  </div>
+<div class='column'>
+  <br>
+  <h4 class='text-center'><u>Class Breakdown</u></h4>
+
+  <div id="canvas-holder" style="width:100%">
+    <canvas id="chart-area"></canvas>
+  </div>
+
+  </div>
+</div>
+
+<script>
+  var config = {
+    type: 'doughnut',
+    data: {
+      datasets: [{
+        data: [],
+        backgroundColor: [],
+        label: 'Dataset 1'
+      }],
+      labels: []
+    },
+    options: {
+      responsive: true,
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: ""
+      },
+      animation: {
+        animateScale: true,
+        animateRotate: true
+      }
+    }
+  };
+
+  window.onload = function() {
+    var ctx = document.getElementById('chart-area').getContext('2d');
+    window.myDoughnut = new Chart(ctx, config);
+
+    var colorNames = Object.keys(window.chartColors);
+
+    var checkedValues = ['IELTS', 'TOEFL', 'Edexcel', 'CIE', 'General English'];
+    var newDataset = {
+			backgroundColor: [],
+			data: [],
+			label: 'New dataset'
+		};
+    var newlabels = [];
+    var totalclasses = parseInt(document.getElementById("classtotal").innerHTML);
+
+    let parameters = {
+      classes : JSON.stringify(checkedValues)
+    };
+    $.getJSON("/getStats", parameters, function(data, textStatus, jqXHR) {
+            if (totalclasses > 0)
+            {
+                var numofClass = data;
+                var totalcheckedclasses = 0;
+                for (var index = 0; index < checkedValues.length; index++) {
+
+                  totalcheckedclasses += numofClass[index][checkedValues[index]];
+          				var colorName = colorNames[index % colorNames.length];
+          				var newColor = window.chartColors[colorName];
+
+                  newDataset.data.push(numofClass[index][checkedValues[index]]);
+          				newDataset.backgroundColor.push(newColor);
+          				newlabels.push(checkedValues[index]);
+          			}
+                if (numofClass.length > 0)
+                {
+                  var otherclasses = totalclasses - totalcheckedclasses;
+                  var colorName = colorNames[(index + 1) % colorNames.length];
+          				var newColor = window.chartColors[colorName];
+
+                  newDataset.data.push(otherclasses);
+          				newDataset.backgroundColor.push(newColor);
+          				newlabels.push('Others');
+                }
+                else {
+                  newDataset.data.push(otherclasses);
+          				newDataset.backgroundColor.push(newColor);
+          				newlabels.push('Others');
+                }
+                config.options.title.text = "Class Breakdown"
+            }
+            else{
+                config.options.title.text = "No class has been added yet"
+            }
+
+            config.data.datasets[0] = newDataset;
+            config.data.labels = newlabels;
+      			window.myDoughnut.update();
+      		});
+  };
+
+</script>
+
+{% endblock %}

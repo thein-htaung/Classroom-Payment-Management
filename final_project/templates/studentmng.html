@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Student management
+{% endblock %}
+
+{% block main %}
+<form action='/manage_student' method='post'>
+  <select name="program" id="program" class="form-control" onchange="getstudents()">
+    {% if selected == 0 %}
+          <option selected disabled>Select a class</option>
+          {% for class in classes %}
+          <option>{{class.identifier}}</option>
+          {% endfor %}
+    {% else %}
+          <option selected>{{Xcepted_one}}</option>
+          <option disabled>Select a class</option>
+          {% for class in classesXceptone %}
+          <option>{{class.identifier}}</option>
+          {% endfor %}
+    {% endif %}
+
+  </select>
+  <br>
+  <div id="display"></div>
+</form>
+  <script src="static/stdmng.js"></script>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <form id="registration" action ="/register" method="post">
+        <div class="form-group">
+            <input autocomplete="off" id="username" autofocus class="form-control" name="username" placeholder="Username" type="text" required>
+            <small class="form-text text-muted">Special characters, ~ !@#$%^&amp;*()_+\-=[]{};':"|,.&lt;&gt;/?, are not allowed</small>
+        </div>
+        <div class="form-group">
+            <input class="form-control" id="pword" name="password" placeholder="Password" type="password" pattern=".{4,}" required>
+            <small class="form-text text-muted">Put special characters and digits</small>
+        </div>
+        <div class="form-group">
+            <input class="form-control" id="confirm" name="confirmation" placeholder="Confirm Password" type="password" required>
+            <small class="form-text text-muted">Re-enter the password to confirm</small>
+        </div>
+            <button class="btn btn-primary" type="submit">Register</button>
+    </form>
+    <script src="static/adm_register.js"></script>
+{% endblock %}

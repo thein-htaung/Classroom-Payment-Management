@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Manage Class
+{% endblock %}
+
+{% block main %}
+  {% if numClass == 0 %}
+    <div>
+      <p class="text-center">No class has been added yet. Please add a class first.<p>
+    </div>
+  {% else %}
+    <h3>Added Classes</h3>
+
+    <table class="table table-dark table-striped">
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Date(dd-mm-yyyy)</th>
+          <th>Starting Period</th>
+          <th>Teacher</th>
+          <th>Num of Students</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <form action="/manage_class" method="post">
+        {% for class in classes %}
+          <tr>
+            <td>{{class.classname}}</td>
+            <td>{{class.classDate}}</td>
+            <td>{{class.period_start}}</td>
+            <td>{{class.teacher}}</td>
+            <td>{{class.student_total}}</td>
+            <td>
+              <button class="btn btn-danger" name="class_id" value="{{class.identifier}}" type="submit">Remove students and class</button>
+            </td>
+          </tr>
+        {% endfor %}
+        </form>
+      </tbody>
+    </table>
+  {% endif %}
+{% endblock %}

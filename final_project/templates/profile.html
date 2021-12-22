@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+<h4>My Profile</h4><br>
+<p><h6 class="red">*You can change either username or password or both at the same time</h6></p>
+<table class="table table-bordered table-striped">
+  <form action="/account" id="profileUpdate" class="form-group" method="post">
+    <tbody class="text-center">
+      <tr>
+        <td>Current username</td>
+        <td>
+            <input type="text" disabled class="form-control custom" value={{admin.name}}>
+        </td>
+      </tr>
+      <tr>
+        <td>New username</td>
+        <td>
+            <input type="text" id="username" name="username" placeholder="new username" class="form-control custom" autofocus>
+        </td>
+      </tr>
+      <tr>
+        <td>New password</td>
+        <td>
+            <input type="password" id="password" name="password" placeholder="new password" class="form-control custom">
+        </td>
+      </tr>
+      <tr>
+        <td>Confirm password</td>
+        <td>
+          <input type="password" id="confirmation" name="confirmation" placeholder="confirm password" class="form-control custom">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="form-inline">
+      * Type your current password to change your info :
+      <input type="password" id="cur_pword" name="cur_pword" placeholder="current password" class="ml-4 form-control custom" required>
+      <button type="submit" class="ml-4 btn btn-primary">Update Info</button>
+  </div>
+</form>
+<script src="static/profile.js"></script>
+{% endblock %}

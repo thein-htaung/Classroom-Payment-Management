@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Add Class
+{% endblock %}
+
+{% block main %}
+  <form action="/add_class" id="add_class" method="post">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="class">Class</label>
+        <input type="text" class="form-control" autofocus name="className" placeholder="Class" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="startingDate">Starting Date</label>
+        <input type="date" class="form-control" name="date" placeholder="dd/mm/yyyy" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="Fees">Fees : Ks </label>
+        <input type="number" step="1" min="0" max="10000000" class="form-control" name="fees" placeholder="Fees" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="Teacher">Teacher</label>
+        <input type="text" class="form-control" name="teacher" placeholder="Teacher">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="Period">Starting period(6:00 AM to 11:00 PM)</label>
+      <input type="time" min="6:00" max="23:00" class="form-control" name="period" placeholder="6:00 AM" required>
+      <span class="validity"></span>
+    </div>
+    <button class="btn btn-primary" type="submit">Add Class</button>
+
+  </form>
+  <br>
+  <p><h4><u>Added Classes</u></h4></p>
+  <ol>
+    {% for class in classes %}
+      <li><strong>{{class.identifier}}</strong></li>
+    {% endfor %}
+  </ol>
+{% endblock %}

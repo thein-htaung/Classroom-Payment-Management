@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Registration
+{% endblock %}
+
+{% block main %}
+  <script src="static/studreg.js"></script>
+  {% if numClass == 0 %}
+  <div>
+    <p class="text-center">No class has been added yet. Please add a class first.</p>
+  </div>
+  {% else %}
+  <h3>Registration for students</h3>
+  <br>
+    <form action="/register_student" id="registration" method="post">
+      <div class="form-row">
+        <div class="form-group col-md-9">
+          <label for="Select class">Select the class for student(s) to enroll:</label>
+          <select class="form-control" name="program" required>
+            <option disabled selected value="">Classes</option>
+            {% for class in classes %}
+              <option value="{{class.identifier}}">{{class.identifier}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-5">
+          <label for="Name">Enter student's name:</label>
+          <input autocomplete="off" autofocus class="form-control" name="studentName" placeholder="Name" type="text" required>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="Nickname">Enter student's nickname(optional):</label>
+          <input autocomplet="off" class="form-control" name="nickname" placeholder="Nickname" type="text">
+        </div>
+      </div>
+      <div class="form-inline">
+        <div class="form-group rx-sm-3 mb-2">
+          <label for="student number to add">More students to add(Max 10 per registration) : </label>
+          <input type="number" step="1" min="0" max="10" autocomplete="off" autofocus class="form-control" id="studentNumber" name="studentNumber" placeholder="0" >
+        </div>
+        <button class="btn btn-info mb-2" type="button" onclick="addFields()">+</button>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-5">
+          <div id="container_name"></div>
+        </div>
+        <div class="form-group col-md-4">
+          <div id="container_nickname"></div>
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit">Register</button>
+  </form>
+
+  {% endif %}
+
+{% endblock %}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<link rel="icon" href="/static/class.ico" type="image/gif" sizes="16x16">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+
+    <link href="/static/styles.css" rel="stylesheet"/>
+
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #3B3636;">
+      <a class="navbar-brand" href="/">CS50</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+          {% if session.user_id %}
+              <ul class="navbar-nav mr-auto mt-2">
+                  <li class="nav-item"><a class="nav-link mb-2 mr-sm-2 mb-sm-0" href="/add_class">Add Class</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/manage_class">Manage Classes</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/register_student">Register Students</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/manage_student">Manage Students</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/manage_payment">Manage Payment</a></li>
+              </ul>
+              <ul class="navbar-nav ml-auto mt-2">
+                  <li class="nav-item"><a class="nav-link" href="/account">My Profile</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+              </ul>
+          {% else %}
+              <ul class="navbar-nav mr-auto mt-2">
+                  <li class="nav-item"><a class="nav-link" href="/register">Register</a><li>
+                  <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+              </ul>
+          {% endif %}
+      </div>
+    </nav>
+    <br>
+    {% if get_flashed_messages() %}
+        <header>
+            <div>
+              {% with errors = get_flashed_messages(category_filter=["error"]) %}
+                {% if errors %}
+                <!-- https://getbootstrap.com/docs/4.0/components/alerts/ -->
+                <div class="alert alert-danger text-center" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <ul>
+                    {%- for msg in errors %}
+                    <li>{{ msg }}</li>
+                    {% endfor -%}
+                  </ul>
+                </div>
+                {% endif %}
+                {% endwith %}
+            </div>
+            <div>
+              {% with successes = get_flashed_messages(category_filter=["success"]) %}
+                {% if successes %}
+                <!-- https://getbootstrap.com/docs/4.0/components/alerts/ -->
+                <div class="alert alert-success text-center" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <ul>
+                    {%- for msg in successes %}
+                    <li>{{ msg }}</li>
+                    {% endfor -%}
+                  </ul>
+                </div>
+                {% endif %}
+                {% endwith %}
+            </div>
+        </header>
+    {% endif %}
+
+    <main class="container p-5">
+            {% block main %}{% endblock %}
+    </main>
+  </body>
+</html>

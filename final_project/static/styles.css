@@ -1,0 +1,92 @@
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: xx-large;
+}
+
+nav .nav-item
+{
+  font-size: large;
+}
+
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+}
+
+main .custom
+{
+    /* override Bootstrap's 100% width for form controls */
+    width: auto !important;
+}
+
+main
+{
+    /* scroll vertically as needed */
+    overflow-y: auto;
+}
+
+body
+{
+  background-image : url("bg.jpg")
+}
+
+/* flash message bullets centered */
+ul {
+    list-style-position: inside;
+}
+
+/* Original Solution found on Stackoverflow here:
+http://stackoverflow.com/questions/26573346/ios-safari-messes-up-input-type-date
+*/
+input[type="date"]
+{
+    display:block;
+
+     -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    min-height: 1.2em;
+}
+
+.blue
+{
+    color: #537fbe;
+}
+
+.red
+{
+    color: #ea433b;
+}
+
+.border-3 {
+    border-width: 2px !important;
+}
+
+/*https://www.w3schools.com/howto/howto_css_two_columns.asp */
+/* Create two equal columns that floats next to each other */
+
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* ajax-loader */
+#wait
+{
+  display : none;
+}
+
+#fees
+{
+  display : none;
+}

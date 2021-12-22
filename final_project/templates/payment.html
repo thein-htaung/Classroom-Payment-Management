@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Payment management
+{% endblock %}
+
+{% block main %}
+<h3>Monthly Payment Management</h3><br>
+<form action='/manage_payment' method='post' onsubmit='return paymentsubmit()'>
+  <select name="program" id="program" class="form-control" onchange="studentpay()">
+    {% if selected == 0 %}
+          <option selected disabled>Select a class</option>
+          {% for class in classes %}
+          <option>{{class.identifier}}</option>
+          {% endfor %}
+    {% else %}
+          <option selected>{{Xcepted_one}}</option>
+          <option disabled>Select a class</option>
+          {% for class in classesXceptone %}
+          <option>{{class.identifier}}</option>
+          {% endfor %}
+    {% endif %}
+  </select>
+  <br><br>
+  <div id="wait" class="text-center">
+    <img src='static/ajax-loader.gif'/><br>Loading..
+  </div>
+  <br><br>
+  <div id="nexPrev"></div><br>
+  <div id="display"></div>
+</form>
+  <script src="static/payment.js"></script>
+{% endblock %}

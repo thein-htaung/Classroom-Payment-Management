@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+<h4 class="text-center">Class Management For English Teachers</h4><br>
+    <form action="/login" id="login" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text"/>
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="password" placeholder="Password" type="password"/>
+        </div>
+        <!-- Move the button to the middle -->
+        <div class="text-center">
+          <button class="btn btn-primary" type="submit">Log In</button>
+        </div>
+    </form>
+    <footer class="page-footer font-small pt-4">
+      <div class="footer-copyright text-center py-3"><b class="blue">Powered By:</b>
+        <i class="red">CS50 final project</i>
+      </div>
+    </footer>
+    <script src="static/login.js"></script>
+
+{% endblock %}
